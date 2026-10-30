@@ -1,0 +1,31 @@
+Greedy Algorithm
+A Greedy Algorithm is an algorithm that solves a problem by choosing the best option available at each step, hoping to find the best overall solution.
+
+& a greedy algorithm makes the best decision it can at the current moment without considering all possible future decisions.
+
+Greedy only gives the best answer when a problem has two properties:
+1.Greedy choice property: a locally optimal choice can always be extended to a globally optimal solution.
+2.Optimal substructure: an optimal solution contains optimal solutions to its subproblems.
+
+Classic problems where greedy is correct
+
+1.Activity selection / interval scheduling: pick the activity that finishes earliest, then repeat.
+2.Huffman coding: repeatedly merge the two least frequent symbols.
+3.Dijkstra’s shortest path: (non-negative weights) always expand the closest unvisited node.
+4.Kruskal’s and Prim’s algorithms: build a minimum spanning tree by adding the cheapest safe edge.
+5.Fractional knapsack: take items in order of value-to-weight ratio.
+
+Minimum Spanning Tree (MST)
+A Minimum Spanning Tree (MST) is a tree that connects all vertices in a connected, weighted, undirected graph with the minimum possible total edge weight, without forming any cycles.
+it must be
+1.Connects all vertices (spanning),
+2.Contains no cycles (tree, so exactly V − 1 edges), and
+3.Has the smallest possible total edge weight.
+eg
+A --4-- B
+| / |
+1 2 5
+| / |
+C --3-- D
+Edges: A-B (4), A-C (1), B-C (2), B-D (5), C-D (3).
+MST: A-C (1), B-C (2), C-D (3), total weight = 6.
