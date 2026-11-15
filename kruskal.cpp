@@ -74,9 +74,22 @@ void unite(vector<int>& parent, vector<int>& rank_, int a, int b) {
 //    a spanning tree of V vertices has exactly V - 1 edges.
 // 4. Return the total cost, which is the minimum possible
 //    cost to connect the whole network.
-int kruskalMST(int V, vector<Edge>& edges, vector<Edge>& mstEdges) {
-    // Step 1: sort edges in ascending order of weight
-    sort(edges.begin(), edges.end(),
+//
+// Returns -1 when the graph is disconnected (some vertex has
+// no way to reach the others), because in that case no
+// spanning tree exists at all.
+//
+// Notes:
+// - The caller's edge list is NOT modified: we sort a copy.
+// - Endpoints must be in the range 0 .. V-1; invalid edges
+//   are skipped so they cannot cause out-of-bounds access.
+// - totalCost is long long so big weights cannot overflow.
+long long kruskalMST(int V, const vector<Edge>& edges, vector<Edge>& mstEdges) {
+    mstEdges.clear(); // start fresh, ignore any old results
+
+    // Step 1: sort a COPY of the edges in ascending order of weight
+    vector<Edge> sortedEdges = edges;
+    sort(sortedEdges.begin(), sortedEdges.end(),
          [](const Edge& a, const Edge& b) {
              return a.weight < b.weight;
          });
@@ -84,13 +97,19 @@ int kruskalMST(int V, vector<Edge>& edges, vector<Edge>& mstEdges) {
     vector<int> parent(V), rank_(V, 0);
     for (int i = 0; i < V; i++) parent[i] = i;
 
-    int totalCost = 0;
+    long long totalCost = 0;
     int edgesUsed = 0;
 
     // Step 2 & 3: pick cheapest non-cycle edges until V - 1 chosen
-    for (const Edge& e : edges) {
+    for (const Edge& e : sortedEdges) {
         if (edgesUsed == V - 1)
             break; // spanning tree complete
+
+        // Ignore edges with invalid vertex ids (outside 0 .. V-1)
+        if (e.source < 0 || e.source >= V ||
+            e.destination < 0 || e.destination >= V) {
+            continue;
+        }
 
         int rootSource = find(parent, e.source);
         int rootDest   = find(parent, e.destination);
@@ -105,8 +124,11 @@ int kruskalMST(int V, vector<Edge>& edges, vector<Edge>& mstEdges) {
         // else: both endpoints already connected -> cycle -> skip
     }
 
-    // Step 4: totalCost is the minimum network cost
-    return totalCost;
+    // Step 4: check the graph was actually connected
+    if (edgesUsed != V - 1)
+        return -1; // some vertex is cut off from the network
+
+    return totalCost; // the minimum network cost
 }
 
 // ============================================================
@@ -130,7 +152,13 @@ int main() {
     };
 
     vector<Edge> mstEdges;
-    int totalCost = kruskalMST(V, edges, mstEdges);
+    long long totalCost = kruskalMST(V, edges, mstEdges);
+
+    if (totalCost == -1) {
+        cout << "The network is disconnected - some towns cannot be "
+             << "reached, so no spanning tree exists." << endl;
+        return 1;
+    }
 
     cout << "Edges in the Minimum Spanning Tree:" << endl;
     for (const Edge& e : mstEdges) {
