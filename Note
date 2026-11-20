@@ -1,0 +1,26 @@
+We include four important libraries:
+Library	       Purpose
+iostream	   Displays output using cout.
+vector	       Stores multiple edges.
+algorithm	   Provides sorting operations.
+using name
+space std	   Allows us to use standard library names directly
+
+An Edge structure contains three attributes:
+1. Source: The starting vertex of a connection.
+2. Destination: The ending vertex of a connection.
+3. Weight: The cost of connecting the two vertices.
+
+A weighted graph is a graph in which every edge has a numerical value called a weight.
+In our network design project:
+- Vertices represent computers or network stations.
+- Edges represent communication links between computers.
+- Weights represent the cost of establishing communication links.
+
+Graph: A collection of vertices and edges.
+Vertex: Represents a computer or network station.
+Edge: Represents a connection between two vertices.
+Weight: Represents the cost of a connection.
+MST: Connects all vertices with minimum total weight without cycles.
+Kruskal's Algorithm: Uses a greedy approach to find the Minimum Spanning Tree 
+  by selecting edges with the smallest weights while avoiding cycles.
