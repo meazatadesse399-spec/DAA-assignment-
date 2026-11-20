@@ -1,0 +1,17 @@
+# Built executables
+*.exe
+*.o
+*.obj
+*.out
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.cbp
+*.depend
+*.layout
+
+# OS specific files
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
