@@ -1,0 +1,10 @@
+Disjoint Set Union (DSU)
+
+A Disjoint Set Union (DSU), also known as a Union-Find data structure, is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets.
+
+It is primarily used to solve problems involving connectivity in graphs, such as finding if two vertices are in the same connected component, or detecting cycles in a network (like in Kruskal's Minimum Spanning Tree algorithm).
+
+The DSU provides two primary operations:
+
+1.find(): Determines which subset a particular element is in. It returns the "representative" or "root" of the set.
+2.unite() (or union): Merges two different subsets into a single subset.
